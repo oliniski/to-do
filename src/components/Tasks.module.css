@@ -50,6 +50,10 @@
   border-radius: 8px;
 }
 
+.taskList img {
+  align-items: center;
+}
+
 .taskList p {
   color: var(--gray-300);
   margin: 0;

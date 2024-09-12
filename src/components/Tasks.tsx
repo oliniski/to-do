@@ -1,31 +1,30 @@
 import styles from './Tasks.module.css';
 import listIcon from '../assets/ListIcon.svg';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ButtonHTMLAttributes, ChangeEvent, FormEvent, useState } from 'react';
 import { Plus, Trash } from '@phosphor-icons/react';
-
+import { v4 } from 'uuid';
 export interface TasksProps {
   taskList: TaskType[];
 }
 export interface TaskType {
-  id: number;
+  id: string;
   text: string;
-  done: boolean;
+  done?: boolean;
 }
 
 export function Tasks() {
   const [taskList, setTaskList] = useState<TaskType[]>([
     { 
-      id: 1,
+      id: v4(),
       text: 'Estudar React',
       done: true,
     },
     { 
-      id: 2,
+      id: v4(),
       text: 'Ler um livro',
-      done: false,
     },
     { 
-      id: 3,
+      id: v4(),
       text: 'Tomar banho',
       done: true,
     },
@@ -36,7 +35,7 @@ export function Tasks() {
   function handleCreateTask(event: FormEvent) {
     event.preventDefault();
     setTaskList([...taskList, { 
-      id: Math.random() + 1, 
+      id: v4(), 
       text: newTaskText,
       done: false,
     }]);
@@ -45,6 +44,21 @@ export function Tasks() {
 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
     setNewTaskText(event.target.value);
+  }
+
+  function handleToggleTaskDone(event: ChangeEvent<HTMLInputElement>) {
+    const updatedTaskList = taskList.map(task => {
+      if (task.id === event.target.dataset.taskId) {
+        return {...task, done:!task.done };
+      }
+      return task;
+    });
+    setTaskList(updatedTaskList);
+  }
+
+  function handleDeleteTask(id: string) {
+    const updatedTaskList = taskList.filter(task => task.id!== id);
+    setTaskList(updatedTaskList);
   }
 
   const hasTasks = taskList.length > 0; 
@@ -91,10 +105,16 @@ export function Tasks() {
         {taskList.map(task => {
           return (
             <div className={styles.task} key={task.id}>
-              <input type="checkbox" defaultChecked={task.done} />
-              <p> {task.text} </p>
-              <p className={styles.delete}>
-              <Trash />
+              <input type="checkbox" 
+                defaultChecked={task.done} 
+                onChange={handleToggleTaskDone}
+              />
+              <p className={task.done ? styles.lineThrough : undefined}> {task.text} </p>
+              <p 
+                className={styles.delete}
+                onClick={() => handleDeleteTask(task.id)}
+              >
+                <Trash />
               </p>
             </div>
           )

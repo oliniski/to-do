@@ -133,6 +133,10 @@ p {
   margin-top: 1rem;
 }
 
+.lineThrough {
+  text-decoration: line-through;
+}
+
 .task input[type="checkbox"] {
   -webkit-appearance: none;
   appearance: none;

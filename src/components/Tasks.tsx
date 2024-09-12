@@ -2,13 +2,21 @@ import styles from './Tasks.module.css';
 import listIcon from '../assets/ListIcon.svg';
 import { Task } from './Task.tsx';
 
-export function Tasks() {
-  const hasTasks = false; // substituir por uma chamada à API para verificar se existem tarefas
+interface TasksProps {
+  tasks: TaskType[];
+}
+export interface TaskType {
+  id: number;
+  text: string;
+}
+
+export function Tasks({ tasks }: TasksProps) {
+  const hasTasks = false; 
   let taskList;
 
   if (hasTasks) {
     taskList = 
-    <div className={styles.taskList}>
+    <div className={styles.emptyList}>
       <img src={listIcon} alt="Um ícone de uma prancheta com uma listagem" />
       <div>
         <p className={styles.bold}>Você ainda não tem tarefas cadastradas</p>
@@ -18,10 +26,9 @@ export function Tasks() {
   } else {
     taskList = 
     <div className={styles.taskList}>
-      <Task text={'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.'}/>
-      <Task text={'Beijar meu amorzin ♥'}/>
-      <Task text={'Cheirar meu amorzin ♥'}/>
-      <Task text={'Macetar meu amorzin ♥'}/>
+      {tasks.map(task => {
+        return <Task text={task.text} key={task.id} />
+      })}
     </div>;
   }
 

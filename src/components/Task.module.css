@@ -1,5 +1,5 @@
 .task {
-  width: 28.1875rem;
+  width: 100%;
   background: var(--gray-500);
   padding: 0.15rem;
   border-radius: .5rem;
@@ -10,7 +10,7 @@
 }
 
 .task p {
-  width: 21.6875rem;
+  width: 100%;
   margin-top: 1rem;
 }
 
@@ -18,8 +18,8 @@
   -webkit-appearance: none;
   appearance: none;
   color: var(--blue);
-  width: 1.0906rem;
-  height: 1.0906rem;
+  width: 1.0625rem;
+  height: 1.0625rem;
   border: 0.15em solid var(--blue);
   border-radius: 100%;
   transform: translateY(-0.075em);
@@ -27,6 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 1rem;
 }
 
 .task input[type="checkbox"]:hover {
@@ -58,6 +59,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 1rem;
 }
 
 .task .delete:hover {

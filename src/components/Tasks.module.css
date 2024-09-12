@@ -40,6 +40,15 @@
 
 .taskList {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.emptyList {
+  width: 100%;
   height: 15.25rem;
   display: flex;
   flex-direction: column;
@@ -54,9 +63,8 @@
   align-items: center;
 }
 
-.taskList p {
+p {
   color: var(--gray-300);
-  margin: 0;
 }
 
 .bold {
